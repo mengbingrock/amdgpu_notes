@@ -63,130 +63,130 @@ struct amdgpu_cs_request {
 };
 
 
+
+
+
+/**
+ * Structure describing submission request
+ *
+ * \note We could have several IBs as packet. e.g. CE, CE, DE case for gfx
+ *
+ * \sa amdgpu_cs_submit()
+*/
+struct amdgpu_cs_request {
+	/** Specify flags with additional information */
+	uint64_t flags;
+
+	/** Specify HW IP block type to which to send the IB. */
+	unsigned ip_type;
+
+	/** IP instance index if there are several IPs of the same type. */
+	unsigned ip_instance;
+
+	/**
+	 * Specify ring index of the IP. We could have several rings
+	 * in the same IP. E.g. 0 for SDMA0 and 1 for SDMA1.
+	 */
+	uint32_t ring;
+
+	/**
+	 * List handle with resources used by this request.
+	 */
+	amdgpu_bo_list_handle resources;
+
+	/**
+	 * Number of dependencies this Command submission needs to
+	 * wait for before starting execution.
+	 */
+	uint32_t number_of_dependencies;
+
+	/**
+	 * Array of dependencies which need to be met before
+	 * execution can start.
+	 */
+	struct amdgpu_cs_fence *dependencies;
+
+	/** Number of IBs to submit in the field ibs. */
+	uint32_t number_of_ibs;
+
+	/**
+	 * IBs to submit. Those IBs will be submit together as single entity
+	 */
+	struct amdgpu_cs_ib_info *ibs;
+
+	/**
+	 * The returned sequence number for the command submission 
+	 */
+	uint64_t seq_no;
+
+	/**
+	 * The fence information
+	 */
+	struct amdgpu_cs_fence_info fence_info;
+};
+
+
+/**
+ * Structure describing submission request
+ *
+ * \note We could have several IBs as packet. e.g. CE, CE, DE case for gfx
+ *
+ * \sa amdgpu_cs_submit()
+*/
+struct amdgpu_cs_request {
+	/** Specify flags with additional information */
+	uint64_t flags;
+
+	/** Specify HW IP block type to which to send the IB. */
+	unsigned ip_type;
+
+	/** IP instance index if there are several IPs of the same type. */
+	unsigned ip_instance;
+
+	/**
+	 * Specify ring index of the IP. We could have several rings
+	 * in the same IP. E.g. 0 for SDMA0 and 1 for SDMA1.
+	 */
+	uint32_t ring;
+
+	/**
+	 * List handle with resources used by this request.
+	 */
+	amdgpu_bo_list_handle resources;
+
+	/**
+	 * Number of dependencies this Command submission needs to
+	 * wait for before starting execution.
+	 */
+	uint32_t number_of_dependencies;
+
+	/**
+	 * Array of dependencies which need to be met before
+	 * execution can start.
+	 */
+	struct amdgpu_cs_fence *dependencies;
+
+	/** Number of IBs to submit in the field ibs. */
+	uint32_t number_of_ibs;
+
+	/**
+	 * IBs to submit. Those IBs will be submit together as single entity
+	 */
+	struct amdgpu_cs_ib_info *ibs;
+
+	/**
+	 * The returned sequence number for the command submission 
+	 */
+	uint64_t seq_no;
+
+	/**
+	 * The fence information
+	 */
+	struct amdgpu_cs_fence_info fence_info;
+};
+
+
 ```
-
-
-/**
- * Structure describing submission request
- *
- * \note We could have several IBs as packet. e.g. CE, CE, DE case for gfx
- *
- * \sa amdgpu_cs_submit()
-*/
-struct amdgpu_cs_request {
-	/** Specify flags with additional information */
-	uint64_t flags;
-
-	/** Specify HW IP block type to which to send the IB. */
-	unsigned ip_type;
-
-	/** IP instance index if there are several IPs of the same type. */
-	unsigned ip_instance;
-
-	/**
-	 * Specify ring index of the IP. We could have several rings
-	 * in the same IP. E.g. 0 for SDMA0 and 1 for SDMA1.
-	 */
-	uint32_t ring;
-
-	/**
-	 * List handle with resources used by this request.
-	 */
-	amdgpu_bo_list_handle resources;
-
-	/**
-	 * Number of dependencies this Command submission needs to
-	 * wait for before starting execution.
-	 */
-	uint32_t number_of_dependencies;
-
-	/**
-	 * Array of dependencies which need to be met before
-	 * execution can start.
-	 */
-	struct amdgpu_cs_fence *dependencies;
-
-	/** Number of IBs to submit in the field ibs. */
-	uint32_t number_of_ibs;
-
-	/**
-	 * IBs to submit. Those IBs will be submit together as single entity
-	 */
-	struct amdgpu_cs_ib_info *ibs;
-
-	/**
-	 * The returned sequence number for the command submission 
-	 */
-	uint64_t seq_no;
-
-	/**
-	 * The fence information
-	 */
-	struct amdgpu_cs_fence_info fence_info;
-};
-
-
-/**
- * Structure describing submission request
- *
- * \note We could have several IBs as packet. e.g. CE, CE, DE case for gfx
- *
- * \sa amdgpu_cs_submit()
-*/
-struct amdgpu_cs_request {
-	/** Specify flags with additional information */
-	uint64_t flags;
-
-	/** Specify HW IP block type to which to send the IB. */
-	unsigned ip_type;
-
-	/** IP instance index if there are several IPs of the same type. */
-	unsigned ip_instance;
-
-	/**
-	 * Specify ring index of the IP. We could have several rings
-	 * in the same IP. E.g. 0 for SDMA0 and 1 for SDMA1.
-	 */
-	uint32_t ring;
-
-	/**
-	 * List handle with resources used by this request.
-	 */
-	amdgpu_bo_list_handle resources;
-
-	/**
-	 * Number of dependencies this Command submission needs to
-	 * wait for before starting execution.
-	 */
-	uint32_t number_of_dependencies;
-
-	/**
-	 * Array of dependencies which need to be met before
-	 * execution can start.
-	 */
-	struct amdgpu_cs_fence *dependencies;
-
-	/** Number of IBs to submit in the field ibs. */
-	uint32_t number_of_ibs;
-
-	/**
-	 * IBs to submit. Those IBs will be submit together as single entity
-	 */
-	struct amdgpu_cs_ib_info *ibs;
-
-	/**
-	 * The returned sequence number for the command submission 
-	 */
-	uint64_t seq_no;
-
-	/**
-	 * The fence information
-	 */
-	struct amdgpu_cs_fence_info fence_info;
-};
-
-
-
 
 If one job has dependencies on another, it will provide the depending fence seq_no when doing command submission.
 ```
